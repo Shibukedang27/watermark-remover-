@@ -12,7 +12,7 @@ from codecleaner.detection.models import (
 from codecleaner.detection.protection import protect_line
 
 
-COMMENT_RE = re.compile(r"^\\s*(?:#|//|/\\*+|<!--|--)")
+COMMENT_RE = re.compile(r"^\s*(?:#|//|/\*+|<!--|--)")
 
 
 class ArtifactIntelligence:
@@ -37,9 +37,9 @@ class ArtifactIntelligence:
             stripped = line.strip()
 
             if COMMENT_RE.match(line):
-                normalized = re.sub(r"\\s+", " ", stripped)
+                normalized = re.sub(r"\s+", " ", stripped)
                 if len(normalized) >= 18 and not re.search(
-                    r"^#\\s*(?:todo|fixme|note|pragma|noqa|type:|region|endregion)\\b",
+                    r"^#\s*(?:todo|fixme|note|pragma|noqa|type:|region|endregion)\b",
                     normalized,
                     re.IGNORECASE,
                 ):
