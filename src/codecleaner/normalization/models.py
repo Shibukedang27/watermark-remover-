@@ -5,6 +5,8 @@ from enum import Enum
 class NormalizationType(str, Enum):
     TRAILING_WHITESPACE = "trailing_whitespace"
     MULTIPLE_BLANK_LINES = "multiple_blank_lines"
+    LEADING_BLANK_LINES = "leading_blank_lines"
+    TRAILING_BLANK_LINES = "trailing_blank_lines"
     MISSING_FINAL_NEWLINE = "missing_final_newline"
 
 
