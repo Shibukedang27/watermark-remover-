@@ -6,7 +6,7 @@ A code-focused cleanup and analysis engine for AI-assisted development.
 
 Phase 10.1 - Artifact intelligence
 
-The cleaner now detects:
+The cleaner now detects and measures:
 
 - Explicit AI attribution and generated-code notices
 - Repeated natural-language comments that add noise
@@ -47,6 +47,7 @@ Phase 8 - Diff and review
 Phase 9 - Export and integrations
 Phase 10 - Intelligence layer
   - 10.1 Artifact redundancy intelligence
+  - 10.2 Feature extraction
   - 10.2 Feature extraction
   - 10.3 Pattern database
   - 10.4 Small local model
