@@ -4,11 +4,13 @@ from hashlib import sha256
 from .models import DetectionFinding
 from .rules import RULES
 from .protection import protect_line
+from codecleaner.intelligence import ArtifactIntelligence
 
 
 class DetectionEngine:
-    def __init__(self, rules=RULES):
+    def __init__(self, rules=RULES, intelligence=None):
         self.rules = tuple(rules)
+        self.intelligence = intelligence or ArtifactIntelligence()
 
     def scan_file(self, root: Path, path: Path) -> list[DetectionFinding]:
         findings: list[DetectionFinding] = []
@@ -46,6 +48,8 @@ class DetectionEngine:
                         reason=rule.reason,
                     )
                 )
+
+        findings.extend(self.intelligence.scan_file(root, path))
 
         return findings
 
