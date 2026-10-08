@@ -65,14 +65,44 @@ class NormalizationEngine:
                 )
             )
 
-        # 3. Reconstruct while preserving whether the original had
-        #    a final newline.
-        normalized = "\n".join(collapsed)
+        # 3. Remove useless blank space at the beginning and end.
+        trimmed = collapsed[:]
 
-        if original.endswith("\n"):
+        while trimmed and trimmed[0].strip() == "":
+            trimmed.pop(0)
+
+        while trimmed and trimmed[-1].strip() == "":
+            trimmed.pop()
+
+        if trimmed != collapsed:
+            if collapsed and collapsed[0].strip() == "":
+                changes.append(
+                    NormalizationChange(
+                        file=str(relative),
+                        change_type=NormalizationType.LEADING_BLANK_LINES,
+                        line=None,
+                        description="Removed leading blank lines.",
+                    )
+                )
+
+            if collapsed and collapsed[-1].strip() == "":
+                changes.append(
+                    NormalizationChange(
+                        file=str(relative),
+                        change_type=NormalizationType.TRAILING_BLANK_LINES,
+                        line=None,
+                        description="Removed trailing blank lines.",
+                    )
+                )
+
+        # 4. Reconstruct while preserving whether the original had
+        #    a final newline.
+        normalized = "\n".join(trimmed)
+
+        if original.endswith("\n") and normalized:
             normalized += "\n"
 
-        # 4. Add a final newline only if the ORIGINAL file lacked one.
+        # 5. Add a final newline only if the ORIGINAL file lacked one.
         if original and not original.endswith("\n"):
             normalized += "\n"
             changes.append(
