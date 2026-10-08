@@ -10,6 +10,7 @@ from codecleaner.detection.models import (
     FindingType,
 )
 from codecleaner.detection.protection import protect_line
+from codecleaner.features.extractor import FeatureExtractor
 
 
 COMMENT_RE = re.compile(r"^\s*(?:#|//|/\*+|<!--|--)")
@@ -101,6 +102,9 @@ class ArtifactIntelligence:
             )
 
         return findings
+
+    def extract_features(self, root: Path, path: Path):
+        return FeatureExtractor().extract_file(root, path)
 
     def scan_files(
         self,
