@@ -7,6 +7,7 @@ class FindingType(str, Enum):
     GENERATED_BANNER = "generated_banner"
     TOOL_NOTICE = "tool_notice"
     AI_ASSISTANT_MARKER = "ai_assistant_marker"
+    REDUNDANT_CONTENT = "redundant_content"
 
 
 class FindingAction(str, Enum):
